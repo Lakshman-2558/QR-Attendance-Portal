@@ -1,2 +1,2 @@
 # QR-Attendance-Portal
-QR-Attendance-Portal
+QR-Based-Login-Attendance-Portal
