@@ -1,0 +1,186 @@
+/* 🔹 Reset and Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 🔹 Glassmorphic Container */
+.login-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    padding: 45px 35px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 40px 400px 0 rgba(31, 38, 135, 0.4);
+    animation: fadeIn 1s ease-in-out;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 🔹 Titles */
+h2, h3 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+/* 🔹 Inputs */
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 14px 18px;
+    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+    font-size: 16px;
+    color: #fff;
+    outline: none;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+input:focus {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #00f2fe;
+    box-shadow: 0 0 10px rgba(0, 242, 254, 0.6);
+}
+
+/* 🔹 Buttons - Enhanced with strong glow */
+button {
+    width: 100%;
+    padding: 16px 0; /* Increased padding */
+    margin-top: 18px;
+    border: none;
+    border-radius: 35px; /* More rounded */
+    font-size: 18px;     /* Slightly larger */
+    font-weight: bold;
+    cursor: pointer;
+    background: linear-gradient(to right, #00f2fe, #4facfe);
+    color: #000;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;  /* Ensure it's above background */
+    box-shadow: 0 0 15px rgba(0, 242, 254, 0.5), /* Glow effect */
+                0 0 30px rgba(0, 242, 254, 0.3);
+}
+
+button:hover {
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 0 30px rgba(0, 242, 254, 0.7), /* Stronger glow */
+                0 0 50px rgba(0, 242, 254, 0.4); /* Intense glow */
+}
+
+/* 🔹 Toggle Buttons (Updated Consistency) */
+#toggleForm, #forgotPassword {
+    margin-top: 15px;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    background: none;
+    color: #00f2fe;
+    border: 2px solid #00f2fe;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+#toggleForm:hover, #forgotPassword:hover {
+    background: #00f2fe;
+    color: #000;
+    box-shadow: 0 0 18px #00f2fe;
+}
+
+/* 🔹 Status Message */
+#statusMessage {
+    margin-top: 15px;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* 🔹 QR Section */
+#qrSection {
+    margin-top: 25px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+#qrImage {
+    width: 180px;
+    height: 180px;
+    animation: pulse 2s infinite;
+    border-radius: 12px;
+    border: 2px solid #00f2fe;
+}
+
+/* 🔹 Animations */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 🔹 Responsive */
+@media (max-width: 500px) {
+    .login-container {
+        padding: 30px 25px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    button {
+        font-size: 15px;
+    }
+}
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: #0d0d0d;
+}

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Board Portal</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #000;
+      overflow: hidden;
+    }
+
+    #particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #1e1e2f, #3a2b71);
+      z-index: 0;
+    }
+
+    .wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.07);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      color: #fff;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .container h1 {
+      font-size: 32px;
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+      text-shadow: 0 0 5px #e1e1ff;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 10px;
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: 600;
+      border-radius: 50px;
+      background: linear-gradient(to right, #ff00cc, #3333ff);
+      color: white;
+      text-decoration: none;
+      box-shadow: 0 0 10px #ff00cc, 0 0 20px #3333ff;
+      transition: all 0.3s ease;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px #ff00cc, 0 0 40px #3333ff;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container h1 {
+        font-size: 24px;
+      }
+
+      .btn {
+        width: 100%;
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Particle Background -->
+  <div id="particles-js"></div>
+
+  <!-- Centered Wrapper -->
+  <div class="wrapper">
+    <div class="container">
+      <h1>Welcome to Smart Board Attendance Portal</h1>
+      <a href="./login.html" class="btn">🔐 Registration / Login</a>
+      <a href="./qr.html" class="btn">📷 Attendance Portal</a>
+    </div>
+  </div>
+
+  <!-- Particles.js Library -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+  <!-- Particle Settings -->
+  <script>
+    particlesJS("particles-js", {
+      particles: {
+        number: {
+          value: 80,
+          density: {
+            enable: true,
+            value_area: 800
+          }
+        },
+        color: {
+          value: "#ffffff"
+        },
+        shape: {
+          type: "circle"
+        },
+        opacity: {
+          value: 0.6,
+          random: true
+        },
+        size: {
+          value: 2.5,
+          random: true
+        },
+        line_linked: {
+          enable: false
+        },
+        move: {
+          enable: true,
+          speed: 0.8,
+          direction: "none",
+          out_mode: "out"
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: {
+            enable: true,
+            mode: "repulse"
+          },
+          onclick: {
+            enable: true,
+            mode: "push"
+          }
+        },
+        modes: {
+          repulse: {
+            distance: 100
+          },
+          push: {
+            particles_nb: 4
+          }
+        }
+      },
+      retina_detect: true
+    });
+  </script>
+
+</body>
+</html>

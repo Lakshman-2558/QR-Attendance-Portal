@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Board Attendance Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="qr.css">
+    <script src="https://cdn.jsdelivr.net/npm/html5-qrcode/minified/html5-qrcode.min.js"></script>
+    <style>
+        /* Home Button Styles */
+        .home-button {
+            /* position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000; */
+            background-color: rgba(212, 53, 0, 0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .home-button:hover {
+            background-color: rgba(167, 45, 0, 0.9);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .home-button i {
+            margin-right: 5px;
+        }
+
+        /* Section for section-subject selection */
+        #section-subject-selection {
+            display: none;
+        }
+        
+        #section-subject-selection.hidden {
+            display: none;
+        }
+        
+        #section-subject-selection:not(.hidden) {
+            display: block;
+        }
+
+        .section-group {
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .subject-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .subject-btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .subject-btn:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="background-overlay"></div>
+    
+    <div class="notification-container" id="notificationContainer"></div>
+    
+    <header>
+        <div class="header-content">
+            <i class="fas fa-chalkboard-teacher header-icon"></i>
+            <h1>Smart Board Attendance Portal</h1>
+            <p class="subheader">Efficient and Simple Attendance Management</p>
+        </div>
+        <div class="header-right-container">
+            <div class="faculty-info hidden" id="facultyInfo">
+                <img src="https://ui-avatars.com/api/?name=Faculty+Member&background=3498db&color=fff" class="faculty-avatar">
+                <span class="faculty-name">Prof. John Doe</span>
+            </div>
+            <div>
+                <!-- Home Button -->
+                <a href="./main.html" class="home-button">
+                    <i class="fas fa-home"></i> Home
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- QR Scanner Section -->
+        <section id="scanner-section" class="card">
+            <div class="section-header">
+                <i class="fas fa-qrcode pulse"></i>
+                <h3>Scan Faculty QR Code</h3>
+            </div>
+            <div id="reader" class="scanner-active"></div>
+            <div class="scanner-guidance">
+                <i class="fas fa-lightbulb"></i>
+                <p>Position the QR code within the frame to scan</p>
+            </div>
+            <p id="loginStatus" class="status-message"></p>
+        </section>
+
+        <!-- Section-Subject Selection Section -->
+        <section id="section-subject-selection" class="card hidden">
+            <div class="section-header">
+                <i class="fas fa-tasks"></i>
+                <h2>Select Section and Subject</h2>
+            </div>
+            <!-- Will be populated dynamically by JavaScript -->
+        </section>
+
+        <!-- Class Selection Section (Kept for backward compatibility) -->
+        <section id="class-selection" class="card hidden">
+            <div class="section-header">
+                <i class="fas fa-users"></i>
+                <h2>Select Your Class</h2>
+            </div>
+            <div class="button-grid">
+                <button class="class-btn" data-class="Class A">
+                    <i class="fas fa-graduation-cap"></i> Class A
+                    <span class="class-count">42 students</span>
+                </button>
+                <button class="class-btn" data-class="Class B">
+                    <i class="fas fa-graduation-cap"></i> Class B
+                    <span class="class-count">38 students</span>
+                </button>
+                <button class="class-btn" data-class="Class C">
+                    <i class="fas fa-graduation-cap"></i> Class C
+                    <span class="class-count">45 students</span>
+                </button>
+                <button class="class-btn" data-class="Class D">
+                    <i class="fas fa-graduation-cap"></i> Class D
+                    <span class="class-count">40 students</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Subject Selection Section (Kept for backward compatibility) -->
+        <section id="subject-selection" class="card hidden">
+            <div class="section-header">
+                <i class="fas fa-book-open"></i>
+                <h2>Select Subject</h2>
+            </div>
+            <div class="subject-cards">
+                <div class="subject-card" data-subject="Math">
+                    <i class="fas fa-square-root-alt"></i>
+                    <span>Mathematics</span>
+                </div>
+                <div class="subject-card" data-subject="Science">
+                    <i class="fas fa-flask"></i>
+                    <span>Science</span>
+                </div>
+                <div class="subject-card" data-subject="English">
+                    <i class="fas fa-language"></i>
+                    <span>English</span>
+                </div>
+                <div class="subject-card" data-subject="History">
+                    <i class="fas fa-landmark"></i>
+                    <span>History</span>
+                </div>
+                <div class="subject-card" data-subject="Geography">
+                    <i class="fas fa-globe-americas"></i>
+                    <span>Geography</span>
+                </div>
+            </div>
+            <button id="proceedToAttendanceButton" class="action-button" disabled>
+                <i class="fas fa-arrow-right"></i> Proceed to Attendance
+            </button>
+        </section>
+
+        <!-- Attendance Marking Section -->
+        <section id="attendance" class="card hidden">
+            <div class="section-header">
+                <i class="fas fa-clipboard-check"></i>
+                <h2>Mark Attendance for <span id="class-name" class="highlight"></span> - <span id="subject-name" class="highlight"></span></h2>
+                <div class="attendance-progress">
+                    <span id="markedCount">0</span>/<span id="totalCount">0</span> marked
+                </div>
+            </div>
+            <div class="form-container">
+                <form id="attendanceForm" class="student-grid four-columns"></form>
+            </div>
+            <button id="submitAttendanceButton" class="action-button">
+                <i class="fas fa-paper-plane"></i> Submit Attendance
+            </button>
+        </section>
+
+        <!-- Attendance Summary Section -->
+        <section id="summary" class="card hidden">
+            <div class="section-header">
+                <i class="fas fa-chart-pie"></i>
+                <h2>Attendance Summary</h2>
+            </div>
+            <div class="summary-stats compact">
+                <div class="stat-card present">
+                    <i class="fas fa-check-circle"></i>
+                    <p id="presentCount">0</p>
+                    <span>Present</span>
+                </div>
+                <div class="stat-card absent">
+                    <i class="fas fa-times-circle"></i>
+                    <p id="absentCount">0</p>
+                    <span>Absent</span>
+                </div>
+            </div>
+            <div class="summary-actions">
+                <button id="viewIndividualAttendance" class="action-button">
+                    <i class="fas fa-user-graduate"></i> View Individual Attendance
+                </button>
+                <button id="newAttendanceSession" class="action-button secondary">
+                    <i class="fas fa-plus"></i> New Session
+                </button>
+            </div>
+        </section>
+
+        <!-- Individual Attendance List -->
+        <section id="individual-attendance-list" class="card hidden">
+            <div class="section-header">
+                <i class="fas fa-list-ol"></i>
+                <h2>Student Attendance Records</h2>
+            </div>
+            <div id="studentList" class="student-grid four-columns"></div>
+        </section>
+
+        <!-- Individual Student Attendance Details -->
+        <section id="student-attendance-details" class="card hidden">
+            <div class="section-header">
+                <i class="fas fa-user-graduate"></i>
+                <h2>Attendance Details for <span id="student-name" class="highlight"></span></h2>
+            </div>
+            <div class="attendance-overview">
+                <div class="progress-circle">
+                    <svg class="progress-ring" width="120" height="120">
+                        <circle class="progress-ring-circle" stroke-width="8" fill="transparent" r="52" cx="60" cy="60"/>
+                    </svg>
+                    <div class="progress-text">
+                        <span id="totalAttendance">0%</span>
+                    </div>
+                </div>
+                <div class="attendance-details">
+                    <h3><i class="fas fa-book"></i> Subject-wise Attendance</h3>
+                    <ul id="subjectAttendanceList"></ul>
+                </div>
+            </div>
+            <button id="backToStudentList" class="action-button secondary">
+                <i class="fas fa-arrow-left"></i> Back to Student List
+            </button>
+        </section>
+    </main>
+
+    <script src="./scanner.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</body>
+</html>
